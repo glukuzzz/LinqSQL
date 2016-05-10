@@ -18,11 +18,13 @@ namespace LinqSQL
 
             sconbuilder.IntegratedSecurity = true;
             sconbuilder.DataSource = "HOST";
+            sconbuilder.InitialCatalog = "CSharp";
             SqlConnection sconn = new SqlConnection(sconbuilder.ConnectionString);
 
             sconn.Open();
             SqlCommand cmd = sconn.CreateCommand();
-            cmd.CommandText = "create database CSharp on (name = 'CSharp', filename = 'c:\\DB\\csharp.mdf', size = 10MB, maxsize = 100MB, filegrowth = 1MB)";
+            //cmd.CommandText = "create database CSharp on (name = 'CSharp', filename = 'c:\\DB\\csharp.mdf', size = 10MB, maxsize = 100MB, filegrowth = 1MB)";
+            cmd.CommandText = "create table Users (UserID int identity (1,1) primary key clustered, Name nvarchar(30) not null, Surname nvarchar(30) not null, Description nvarchar(1000) null, RegistrationDate datetime not null default (getdate())  )";
             cmd.ExecuteNonQuery();
             Console.ReadKey();
         }
